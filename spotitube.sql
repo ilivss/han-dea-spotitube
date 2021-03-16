@@ -8,7 +8,8 @@ CREATE TABLE user
 (
   id INT NOT NULL auto_increment PRIMARY KEY,
   username VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(50) NOT NULL
+  password VARCHAR(50) NOT NULL,
+  token VARCHAR(50) UNIQUE
 );
 
 INSERT INTO user (username, password) VALUES ('john', 'doe');

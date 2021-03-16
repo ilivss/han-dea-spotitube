@@ -12,7 +12,6 @@ public class User {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.token = "1234-1234-1234";
     }
 
     public int getId() {

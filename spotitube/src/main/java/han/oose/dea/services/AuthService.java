@@ -8,6 +8,7 @@ import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import java.util.UUID;
 
 @Path("auth")
 public class AuthService {
@@ -25,10 +26,14 @@ public class AuthService {
         // if user does not exist
         if (user == null) return Response.status(Response.Status.UNAUTHORIZED).build();
 
-        // Login success
+        // Generate token and add it to user;
+        String token = UUID.randomUUID().toString();
+        userDAO.updateToken(user, token);
+
         UserDTO userDTO = new UserDTO();
         userDTO.user = user.getUsername();
-        userDTO.token = "1234-1234-1234";
+        userDTO.token = user.getToken();
+
         return Response.status(200).entity(userDTO).build();
     }
 

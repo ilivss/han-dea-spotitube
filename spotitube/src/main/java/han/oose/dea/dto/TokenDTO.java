@@ -1,4 +1,4 @@
-package han.oose.dea.services.dto;
+package han.oose.dea.dto;
 
 public class TokenDTO {
     public String user;

@@ -2,8 +2,8 @@ package han.oose.dea.services;
 
 import han.oose.dea.dao.UserDAO;
 import han.oose.dea.domain.User;
-import han.oose.dea.services.dto.TokenDTO;
-import han.oose.dea.services.dto.UserDTO;
+import han.oose.dea.dto.TokenDTO;
+import han.oose.dea.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

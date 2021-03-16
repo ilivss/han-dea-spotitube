@@ -2,8 +2,9 @@ package han.oose.dea.services;
 
 import han.oose.dea.dao.UserDAO;
 import han.oose.dea.domain.User;
-import han.oose.dea.services.dto.TokenDTO;
-import han.oose.dea.services.dto.UserDTO;
+import han.oose.dea.exceptions.AuthenticationException;
+import han.oose.dea.dto.TokenDTO;
+import han.oose.dea.dto.UserDTO;
 
 import javax.inject.Inject;
 import javax.ws.rs.*;
@@ -25,7 +26,7 @@ public class AuthService {
         User user = userDAO.authenticate(possibleUser.user, possibleUser.password);
 
         // if user does not exist
-        if (user == null) return Response.status(Response.Status.UNAUTHORIZED).build();
+        if (user == null) throw new AuthenticationException("User bestaat niet of wachtwoord komt niet overreen!");
 
         // Generate token and add it to user;
         String token = UUID.randomUUID().toString();

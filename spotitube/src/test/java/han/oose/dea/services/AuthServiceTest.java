@@ -2,6 +2,7 @@ package han.oose.dea.services;
 
 import han.oose.dea.dao.UserDAO;
 import han.oose.dea.domain.User;
+import han.oose.dea.services.dto.TokenDTO;
 import han.oose.dea.services.dto.UserDTO;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,11 +36,11 @@ class AuthServiceTest {
 
         // Act
         Response response = this.authService.login(this.requestUserDTO);
-        UserDTO responseUserDTO = (UserDTO) response.getEntity();
+        TokenDTO tokenDTO = (TokenDTO) response.getEntity();
 
         // Assert
         assertEquals(Response.Status.OK, response.getStatusInfo());
-        assertEquals(this.requestUserDTO.user, responseUserDTO.user);
+        assertEquals(this.requestUserDTO.user, tokenDTO.user);
     }
 
     @Test

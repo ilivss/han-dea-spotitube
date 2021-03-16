@@ -2,6 +2,7 @@ package han.oose.dea.services;
 
 import han.oose.dea.dao.UserDAO;
 import han.oose.dea.domain.User;
+import han.oose.dea.services.dto.TokenDTO;
 import han.oose.dea.services.dto.UserDTO;
 
 import javax.inject.Inject;
@@ -30,11 +31,11 @@ public class AuthService {
         String token = UUID.randomUUID().toString();
         userDAO.updateToken(user, token);
 
-        UserDTO userDTO = new UserDTO();
-        userDTO.user = user.getUsername();
-        userDTO.token = user.getToken();
+        TokenDTO tokenDTO = new TokenDTO();
+        tokenDTO.user = user.getUsername();
+        tokenDTO.token = user.getToken();
 
-        return Response.status(200).entity(userDTO).build();
+        return Response.status(200).entity(tokenDTO).build();
     }
 
     @Inject

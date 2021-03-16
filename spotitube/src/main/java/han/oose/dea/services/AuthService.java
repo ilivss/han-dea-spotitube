@@ -6,21 +6,18 @@ import han.oose.dea.exceptions.AuthenticationException;
 import han.oose.dea.dto.TokenDTO;
 import han.oose.dea.dto.UserDTO;
 
+import javax.enterprise.inject.Default;
 import javax.inject.Inject;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("auth")
+@Default
 public class AuthService {
     private UserDAO userDAO;
 
-    @POST
-    @Path("login")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Produces(MediaType.APPLICATION_JSON)
-    public Response login(UserDTO possibleUser) {
+    public TokenDTO login(UserDTO possibleUser) {
 
         // Retrieve user from db
         User user = userDAO.authenticate(possibleUser.user, possibleUser.password);
@@ -36,7 +33,7 @@ public class AuthService {
         tokenDTO.user = user.getUsername();
         tokenDTO.token = user.getToken();
 
-        return Response.status(200).entity(tokenDTO).build();
+        return tokenDTO;
     }
 
     @Inject

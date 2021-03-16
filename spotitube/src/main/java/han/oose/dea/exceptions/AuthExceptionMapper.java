@@ -7,13 +7,11 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class AuthenticationExceptionMapper implements ExceptionMapper<AuthenticationException> {
+public class AuthExceptionMapper implements ExceptionMapper<AuthException> {
 
     @Override
-    public Response toResponse(AuthenticationException e) {
-        ErrorDTO errorDTO = new ErrorDTO();
-        errorDTO.message = e.getMessage();
-
+    public Response toResponse(AuthException e) {
+        ErrorDTO errorDTO = new ErrorDTO(e.getMessage());
         return Response.status(401).entity(errorDTO).build();
     }
 }

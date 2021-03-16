@@ -1,5 +1,6 @@
 package han.oose.dea.resources;
 
+import han.oose.dea.dto.TokenDTO;
 import han.oose.dea.dto.UserDTO;
 import han.oose.dea.services.AuthService;
 
@@ -16,9 +17,7 @@ public class AuthResource {
     private AuthService authService;
 
     // FIXME: Als ik dit weghaal werkt geen een route meer. Waarom?
-    public AuthResource() {
-
-    }
+    public AuthResource() {}
 
     @Inject
     public AuthResource(AuthService authService) {
@@ -30,6 +29,7 @@ public class AuthResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response login(UserDTO userDTO) {
-        return Response.status(Response.Status.OK).entity(authService.login(userDTO)).build();
+        TokenDTO tokenDTO = authService.login(userDTO);
+        return Response.status(Response.Status.OK).entity(tokenDTO).build();
     }
 }

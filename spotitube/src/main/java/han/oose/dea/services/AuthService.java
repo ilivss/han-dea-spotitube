@@ -15,9 +15,8 @@ public class AuthService {
     private UserDAO userDAO;
 
     public TokenDTO login(UserDTO possibleUser) {
-
         // Retrieve user from db
-        User user = userDAO.authenticate(possibleUser.user, possibleUser.password);
+        User user = userDAO.getUser(possibleUser.user, possibleUser.password);
 
         // if user does not exist
         if (user == null) throw new AuthException("User bestaat niet of wachtwoord komt niet overreen!");

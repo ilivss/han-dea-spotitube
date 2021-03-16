@@ -20,7 +20,7 @@ public class UserDAO {
     private static final String AUTH_QUERY = "SELECT * FROM user WHERE username = ? AND password = ?";
     private static final String UPDATE_TOKEN_QUERY = "UPDATE user SET token = ? WHERE id = ?";
 
-    public User authenticate(String username, String password) {
+    public User getUser(String username, String password) {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(AUTH_QUERY);
 

@@ -12,6 +12,6 @@ public class AuthExceptionMapper implements ExceptionMapper<AuthException> {
     @Override
     public Response toResponse(AuthException e) {
         ErrorDTO errorDTO = new ErrorDTO(e.getMessage());
-        return Response.status(401).entity(errorDTO).build();
+        return Response.status(Response.Status.UNAUTHORIZED).entity(errorDTO).build();
     }
 }

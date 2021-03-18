@@ -1,6 +1,7 @@
 package han.oose.dea.dao;
 
 import han.oose.dea.domain.User;
+import han.oose.dea.exceptions.PersistenceException;
 
 import javax.enterprise.inject.Default;
 import javax.annotation.Resource;
@@ -9,52 +10,37 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 @Default
-public class UserDAO {
+public class UserDAO implements IUserDAO {
     @Resource(name = "jdbc/spotitube")
     DataSource dataSource;
 
     // Queries
     private static final String AUTH_QUERY = "SELECT * FROM user WHERE username = ? AND password = ?";
-    private static final String UPDATE_TOKEN_QUERY = "UPDATE user SET token = ? WHERE id = ?";
 
-    public User getUser(String username, String password) {
+    @Override
+    public User getUser(User user) throws PersistenceException {
         try (Connection connection = dataSource.getConnection()) {
             PreparedStatement statement = connection.prepareStatement(AUTH_QUERY);
 
-            statement.setString(1, username);
-            statement.setString(2, password);
+            statement.setString(1, user.getUsername());
+            statement.setString(2, user.getPassword());
 
             ResultSet resultSet = statement.executeQuery();
 
-            if (resultSet.next()){
-                return new User(resultSet.getInt("id"),
-                        resultSet.getString("username"),
+            if (resultSet.next()) {
+                return new User(resultSet.getString("username"),
                         resultSet.getString("password"));
+            } else {
+                return null;
             }
-        } catch (SQLException exception) {
-            exception.printStackTrace();
+        } catch (SQLException e) {
+            throw new PersistenceException("No database connection!");
         }
-
-        return null;
     }
 
-    public void updateToken(User user, String token) {
-        try (Connection connection = dataSource.getConnection()) {
-            PreparedStatement statement = connection.prepareStatement(UPDATE_TOKEN_QUERY);
-
-            statement.setString(1, token);
-            statement.setInt(2, user.getId());
-            statement.execute();
-            user.setToken(token); // Set token of user object.
-        } catch (SQLException exception) {
-            exception.printStackTrace();
-        }
-
-    }
-
+    @Override
     public void setDataSource(DataSource dataSource) {
         this.dataSource = dataSource;
     }

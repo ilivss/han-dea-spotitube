@@ -3,19 +3,14 @@ package han.oose.dea.domain;
 import java.util.UUID;
 
 public class User {
-    private int id;
     private String username;
     private String password;
-    private String token;
 
-    public User(int id, String username, String password) {
-        this.id = id;
+    public User () {}
+
+    public User(String username, String password) {
         this.username = username;
         this.password = password;
-    }
-
-    public int getId() {
-        return id;
     }
 
     public String getUsername() {
@@ -24,13 +19,5 @@ public class User {
 
     public String getPassword() {
         return password;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

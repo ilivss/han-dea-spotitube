@@ -1,35 +1,34 @@
 package han.oose.dea.services;
 
-import han.oose.dea.dao.UserDAO;
+import han.oose.dea.dao.ITokenDAO;
+import han.oose.dea.dao.IUserDAO;
+import han.oose.dea.domain.Token;
 import han.oose.dea.domain.User;
-import han.oose.dea.exceptions.AuthException;
-import han.oose.dea.dto.TokenDTO;
-import han.oose.dea.dto.UserDTO;
+import han.oose.dea.exceptions.PersistenceException;
 
 import javax.enterprise.inject.Default;
 import javax.inject.Inject;
-import java.util.UUID;
 
 @Default
 public class AuthService {
-    private UserDAO userDAO;
-
-    public TokenDTO login(UserDTO possibleUser) {
-        // Retrieve user from db
-        User user = userDAO.getUser(possibleUser.user, possibleUser.password);
-
-        // if user does not exist
-        if (user == null) throw new AuthException("User bestaat niet of wachtwoord komt niet overreen!");
-
-        // Generate token and add to user;
-        String token = UUID.randomUUID().toString();
-        userDAO.updateToken(user, token);
-
-        return new TokenDTO(user.getUsername(), user.getToken());
-    }
+    @Inject
+    private IUserDAO userDAO;
 
     @Inject
-    public void setUserDAO(UserDAO userDAO) {
-        this.userDAO = userDAO;
+    private ITokenDAO tokenDAO;
+
+    public Token login(User potentialUser) throws PersistenceException {
+        // Retrieve user from db
+        User user = userDAO.getUser(potentialUser);
+
+        // if user does not exist
+        if (user == null) return null;
+
+        // Generate token and save to database;
+        String username = user.getUsername();
+        Token token = tokenDAO.generateAndSaveToken(user.getUsername());
+
+        return token;
     }
+
 }

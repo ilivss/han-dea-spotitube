@@ -6,11 +6,26 @@ USE spotitube_db;
 DROP TABLE IF EXISTS user;
 CREATE TABLE user
 (
-  id INT NOT NULL auto_increment PRIMARY KEY,
-  username VARCHAR(50) NOT NULL UNIQUE,
-  password VARCHAR(50) NOT NULL,
-  token VARCHAR(50) UNIQUE
+    username VARCHAR(50) NOT NULL,
+    password VARCHAR(50) NOT NULL,
+    PRIMARY KEY (username)
 );
 
-INSERT INTO user (username, password) VALUES ('john', 'doe');
 
+DROP TABLE IF EXISTS token;
+CREATE TABLE token
+(
+    username    VARCHAR(50) NOT NULL,
+    token       VARCHAR(50) NOT NULL,
+    expiry_date DATETIME    NOT NULL,
+    PRIMARY KEY (username),
+    UNIQUE (token),
+    CONSTRAINT FK_username
+        FOREIGN KEY (username)
+            REFERENCES spotitube_db.user (username)
+            ON DELETE NO ACTION
+            ON UPDATE NO ACTION
+);
+
+INSERT INTO user (username, password)
+VALUES ('john', 'doe');

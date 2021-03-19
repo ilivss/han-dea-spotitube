@@ -1,6 +1,6 @@
 package han.oose.dea.exceptions;
 
-import han.oose.dea.dto.ErrorDTO;
+import han.oose.dea.rest.dto.ErrorDTO;
 
 import javax.ws.rs.core.Response;
 import javax.ws.rs.ext.ExceptionMapper;

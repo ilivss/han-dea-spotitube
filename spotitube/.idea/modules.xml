@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/spotitube.iml" filepath="$PROJECT_DIR$/spotitube.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/spotitube.iml" filepath="$PROJECT_DIR$/.idea/spotitube.iml" />
     </modules>
   </component>
 </project>

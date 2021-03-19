@@ -1,7 +1,7 @@
 package han.oose.dea.services;
 
-import han.oose.dea.dao.ITokenDAO;
-import han.oose.dea.dao.IUserDAO;
+import han.oose.dea.persistence.ITokenDAO;
+import han.oose.dea.persistence.IUserDAO;
 import han.oose.dea.domain.Token;
 import han.oose.dea.domain.User;
 import han.oose.dea.exceptions.PersistenceException;

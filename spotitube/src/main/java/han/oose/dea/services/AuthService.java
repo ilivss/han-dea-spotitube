@@ -26,10 +26,4 @@ public class AuthService {
         // Generate token and save to database;
         return tokenDAO.generateAndSaveToken(user.getUsername());
     }
-
-    public User checkAuth(String tokenString) {
-        Token token = tokenDAO.getToken(tokenString);
-        // Do authentication check
-        return userDAO.getUser(token.getUsername());
-    }
 }

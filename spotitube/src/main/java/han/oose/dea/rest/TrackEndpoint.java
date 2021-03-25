@@ -1,7 +1,8 @@
 package han.oose.dea.rest;
 
+import han.oose.dea.auth.Authenticated;
 import han.oose.dea.domain.Track;
-import han.oose.dea.exceptions.TestException;
+import han.oose.dea.exceptions.NoRecoursesFoundException;
 import han.oose.dea.rest.dto.TrackDTO;
 import han.oose.dea.exceptions.PersistenceException;
 import han.oose.dea.rest.dto.TracksDTO;
@@ -26,10 +27,8 @@ public class TrackEndpoint {
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response getNotInPlaylist(@QueryParam("forPlaylist") int playlistId, @QueryParam("token") String token) throws PersistenceException, TestException {
-        // Check token
-        // TODO: Add auth check!
-
+    @Authenticated
+    public Response getNotInPlaylist(@QueryParam("forPlaylist") int playlistId, @QueryParam("token") String token) throws PersistenceException, NoRecoursesFoundException {
         // Get tracks
         List<Track> tracks;
         if (playlistId == 0) {
@@ -38,7 +37,7 @@ public class TrackEndpoint {
             tracks = trackService.getNotInPlaylist(playlistId);
         }
 
-        if (tracks == null || tracks.size() == 0) throw new TestException("Geen tracks gevonden!");
+        if (tracks == null || tracks.size() == 0) throw new NoRecoursesFoundException("Geen tracks gevonden!");
 
         // Map Track to Rest
         List<TrackDTO> trackDTOs = tracks.stream().map(track -> trackMapper.toDTO(track)).collect(Collectors.toList());

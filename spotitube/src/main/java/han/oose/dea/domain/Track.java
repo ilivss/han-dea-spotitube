@@ -12,7 +12,6 @@ public class Track {
     private boolean offlineAvailable;
 
     public Track() {
-
     }
 
     public Track(int id, String title, String performer, int duration, String album) {

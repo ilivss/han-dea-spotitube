@@ -1,5 +1,6 @@
 package han.oose.dea.services;
 
+import han.oose.dea.exceptions.AuthException;
 import han.oose.dea.persistence.ITokenDAO;
 import han.oose.dea.persistence.IUserDAO;
 import han.oose.dea.domain.Token;
@@ -17,15 +18,18 @@ public class AuthService {
 
     public Token login(User potentialUser) throws PersistenceException {
         // Retrieve user from db
-        User user = userDAO.getUser(potentialUser);
+        User user = userDAO.authenticate(potentialUser);
 
         // if user does not exist
         if (user == null) return null;
 
         // Generate token and save to database;
-        String username = user.getUsername();
-        Token token = tokenDAO.generateAndSaveToken(user.getUsername());
+        return tokenDAO.generateAndSaveToken(user.getUsername());
+    }
 
-        return token;
+    public User checkAuth(String tokenString) {
+        Token token = tokenDAO.getToken(tokenString);
+        // Do authentication check
+        return userDAO.getUser(token.getUsername());
     }
 }

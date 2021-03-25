@@ -40,7 +40,7 @@ class AuthServiceTest {
     public void loginSuccess() throws PersistenceException {
         // Arrange
         Token expectedToken = new Token();
-        when(userDAO.getUser(user)).thenReturn(user);
+        when(userDAO.authenticate(user)).thenReturn(user);
         when(tokenDAO.generateAndSaveToken(any())).thenReturn(expectedToken);
 
         // Act
@@ -53,7 +53,7 @@ class AuthServiceTest {
     @Test
     public void loginFailure() throws PersistenceException {
         // Arrange
-        when(userDAO.getUser(user)).thenReturn(null);
+        when(userDAO.authenticate(user)).thenReturn(null);
 
         // Act
         Token actualToken = authService.login(user);

@@ -10,9 +10,7 @@ import javax.inject.Inject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistsRestMapper implements IRestMapper<PlaylistsDTO, List<PlaylistDTO>>{
-    @Inject
-    private PlaylistRestMapper playlistRestMapper;
+public class PlaylistsRestMapper implements IRestMapper<PlaylistsDTO, List<PlaylistDTO>> {
 
     @Override
     public PlaylistsDTO toDTO(List<PlaylistDTO> playlistDTOs) {

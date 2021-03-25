@@ -6,7 +6,7 @@ import han.oose.dea.services.PlaylistTrackService;
 import javax.inject.Inject;
 import java.util.List;
 
-public class PlaylistTrackHelper {
+public class TrackHelper {
     @Inject
     private PlaylistTrackService playlistTrackService;
 

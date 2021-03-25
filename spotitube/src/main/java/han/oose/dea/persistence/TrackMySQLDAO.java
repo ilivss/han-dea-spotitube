@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class TrackDAO implements ITrackDAO {
+public class TrackMySQLDAO implements ITrackDAO {
     @Resource(name = "jdbc/spotitube")
     DataSource dataSource;
 

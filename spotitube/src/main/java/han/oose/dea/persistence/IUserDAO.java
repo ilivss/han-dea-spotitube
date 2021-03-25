@@ -6,7 +6,9 @@ import han.oose.dea.exceptions.PersistenceException;
 import javax.sql.DataSource;
 
 public interface IUserDAO {
-    User getUser(User user) throws PersistenceException;
+    User authenticate(User user) throws PersistenceException;
+
+    User getUser(String username);
 
     void setDataSource(DataSource dataSource);
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Default
-public class PlaylistDAO implements IPlaylistDAO {
+public class PlaylistMySQLDAO implements IPlaylistDAO {
     @Resource(name = "jdbc/spotitube")
     DataSource dataSource;
 

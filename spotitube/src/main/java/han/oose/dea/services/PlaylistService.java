@@ -11,6 +11,8 @@ import java.util.List;
 public class PlaylistService {
     @Inject
     private IPlaylistDAO playlistDAO;
+    @Inject
+    private PlaylistTrackService playlistTrackService;
 
     @Inject
     private PlaylistHelper playlistHelper;

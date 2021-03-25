@@ -26,9 +26,4 @@ public class TrackSQLDataMapper implements IDataMapper<ResultSet, Track> {
 
         return null;
     }
-
-    @Override
-    public ResultSet toResultSet(Track track) {
-        return null;
-    }
 }

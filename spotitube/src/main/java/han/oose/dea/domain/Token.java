@@ -5,15 +5,15 @@ import java.sql.Date;
 public class Token {
     private String username;
     private String token;
-    private Date expiry_date;
+    private Date expiryDate;
 
     public Token() {
     }
 
-    public Token(String username, String token, Date expiry_date) {
+    public Token(String username, String token, Date expiryDate) {
         this.username = username;
         this.token = token;
-        this.expiry_date = expiry_date;
+        this.expiryDate = expiryDate;
     }
 
     public String getUsername() {
@@ -24,7 +24,7 @@ public class Token {
         return token;
     }
 
-    public Date getExpiry_date() {
-        return expiry_date;
+    public Date getExpiryDate() {
+        return expiryDate;
     }
 }

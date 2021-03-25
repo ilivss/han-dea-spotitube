@@ -7,12 +7,11 @@ import javax.ws.rs.ext.ExceptionMapper;
 import javax.ws.rs.ext.Provider;
 
 @Provider
-public class TestExceptionMapper implements ExceptionMapper<TestException> {
+public class NoResourcesFoundExceptionMapper implements ExceptionMapper<NoRecoursesFoundException> {
 
     @Override
-    public Response toResponse(TestException e) {
+    public Response toResponse(NoRecoursesFoundException e) {
         ErrorDTO errorDTO = new ErrorDTO(e.getMessage());
-        // FIXME: Response moet OK zijn anders logt client uit!
-        return Response.status(Response.Status.OK).entity(errorDTO).build();
+        return Response.ok(errorDTO).build(); // FIXME: Response moet OK zijn anders logt client uit!
     }
 }

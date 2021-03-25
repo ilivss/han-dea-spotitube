@@ -20,9 +20,4 @@ public class PlaylistSQLDataMapper implements IDataMapper<ResultSet, Playlist> {
 
         return null;
     }
-
-    @Override
-    public ResultSet toResultSet(Playlist playlist) {
-        return null;
-    }
 }

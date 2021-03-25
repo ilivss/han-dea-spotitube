@@ -1,8 +1,7 @@
 package han.oose.dea.persistence;
 
-import han.oose.dea.domain.Track;
-
 import javax.annotation.Resource;
+import javax.enterprise.inject.Default;
 import javax.sql.DataSource;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -11,7 +10,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlaylistTrackDAO implements IPlaylistTrackDAO {
+@Default
+public class PlaylistTrackMySQLDAO implements IPlaylistTrackDAO {
     @Resource(name = "jdbc/spotitube")
     DataSource dataSource;
 
@@ -71,7 +71,7 @@ public class PlaylistTrackDAO implements IPlaylistTrackDAO {
 
             statement.execute();
         } catch (SQLException e) {
-//            e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }

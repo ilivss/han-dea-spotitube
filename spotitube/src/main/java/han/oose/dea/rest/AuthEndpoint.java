@@ -1,8 +1,9 @@
 package han.oose.dea.rest;
 
 import han.oose.dea.domain.Token;
+import han.oose.dea.exceptions.AuthException;
 import han.oose.dea.rest.dto.UserDTO;
-import han.oose.dea.exceptions.TestException;
+import han.oose.dea.exceptions.NoRecoursesFoundException;
 import han.oose.dea.exceptions.PersistenceException;
 import han.oose.dea.rest.mappers.TokenRestMapper;
 import han.oose.dea.rest.mappers.UserRestMapper;
@@ -31,11 +32,11 @@ public class AuthEndpoint {
     @Path("login")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response login(UserDTO userDTO) throws TestException, PersistenceException {
+    public Response login(UserDTO userDTO) throws PersistenceException, AuthException {
         Token token = authService.login(userRestMapper.toDomainObject(userDTO));
 
         if (token == null) {
-            throw new TestException("Account bestaat niet of wachtwoord is incorrect!");
+            throw new AuthException("Account bestaat niet of wachtwoord is incorrect!");
         } else {
             return Response.status(Response.Status.OK).entity(tokenMapper.toDTO(token)).build();
         }

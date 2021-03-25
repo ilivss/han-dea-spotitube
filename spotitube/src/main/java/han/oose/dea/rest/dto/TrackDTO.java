@@ -11,7 +11,8 @@ public class TrackDTO {
     public String description;
     public boolean offlineAvailable;
 
-    public TrackDTO () {}
+    public TrackDTO() {
+    }
 
     public TrackDTO(int id, String title, String performer, int duration, String album) {
         this.id = id;

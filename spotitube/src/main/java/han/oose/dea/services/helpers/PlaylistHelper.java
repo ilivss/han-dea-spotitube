@@ -18,16 +18,4 @@ public class PlaylistHelper {
             playlist.setTracks(trackService.getInPlaylist(playlist.getId()));
         }
     }
-
-    public long calculatePlaylistLength(List<Playlist> playlist) {
-        long seconds = 0;
-
-        for(Playlist p : playlist) {
-            for (Track t : p.getTracks()) {
-                seconds += t.getDuration();
-            }
-        }
-
-        return seconds;
-    }
 }

@@ -89,4 +89,9 @@ public class PlaylistMySQLDAO implements IPlaylistDAO {
             throw new PersistenceException(e.getMessage());
         }
     }
+
+    @Override
+    public void setDataSource(DataSource dataSource) {
+        this.dataSource = dataSource;
+    }
 }

@@ -8,7 +8,7 @@ public interface IPlaylistTrackDAO {
 
     void removeTrackFromPlaylist(int playlistId, int trackId);
 
-    void setDataSource(DataSource dataSource);
-
     void addTrackToPlaylist(int playlistId, int trackId);
+
+    void setDataSource(DataSource dataSource);
 }

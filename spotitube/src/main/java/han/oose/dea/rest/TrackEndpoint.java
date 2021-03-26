@@ -22,13 +22,13 @@ public class TrackEndpoint {
     private TrackService trackService;
 
     @Inject
-    private TrackRestMapper trackMapper;
+    private TrackRestMapper trackRestMapper;
 
     @GET
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Authenticated
-    public Response getNotInPlaylist(@QueryParam("forPlaylist") int playlistId, @QueryParam("token") String token) throws PersistenceException, NoRecoursesFoundException {
+    public Response getNotInPlaylist(@QueryParam("forPlaylist") int playlistId) throws PersistenceException, NoRecoursesFoundException {
         // Get tracks
         List<Track> tracks;
         if (playlistId == 0) {
@@ -40,7 +40,7 @@ public class TrackEndpoint {
         if (tracks == null || tracks.size() == 0) throw new NoRecoursesFoundException("Geen tracks gevonden!");
 
         // Map Track to Rest
-        List<TrackDTO> trackDTOs = tracks.stream().map(track -> trackMapper.toDTO(track)).collect(Collectors.toList());
+        List<TrackDTO> trackDTOs = tracks.stream().map(track -> trackRestMapper.toDTO(track)).collect(Collectors.toList());
         return Response.ok(new TracksDTO(trackDTOs)).build();
     }
 }

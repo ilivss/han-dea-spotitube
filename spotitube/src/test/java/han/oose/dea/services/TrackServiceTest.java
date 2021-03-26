@@ -44,8 +44,7 @@ class TrackServiceTest {
     public void getAll() throws PersistenceException {
         when(trackDAO.findAll()).thenReturn(mockTracks);
 
-
-        var tracks = trackService.getAll();
+        List<Track> tracks = trackService.getAll();
 
         assertEquals(mockTracks, tracks);
     }
@@ -54,7 +53,7 @@ class TrackServiceTest {
     public void getAllException() throws PersistenceException {
         when(trackDAO.findAll()).thenThrow(new PersistenceException("SQL Error"));
         try {
-            var tracks = trackService.getAll();
+            List<Track> tracks = trackService.getAll();
         } catch (PersistenceException e) {
             assertEquals("SQL Error", e.getMessage());
         }
@@ -68,7 +67,7 @@ class TrackServiceTest {
         when(trackHelper.isTrackInPlaylist(2, 1)).thenReturn(true);
 
 
-        var tracks = trackService.getNotInPlaylist(1);
+        List<Track> tracks = trackService.getNotInPlaylist(1);
 
         assertEquals(1, tracks.size());
         assertEquals(1, tracks.get(0).getId());
@@ -83,7 +82,7 @@ class TrackServiceTest {
         when(trackHelper.isTrackInPlaylist(2, 1)).thenReturn(true);
 
 
-        var tracks = trackService.getInPlaylist(1);
+        List<Track> tracks = trackService.getInPlaylist(1);
 
 
         assertEquals(1, tracks.size());

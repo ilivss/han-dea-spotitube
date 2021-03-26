@@ -18,7 +18,7 @@ import java.util.Date;
 @Provider
 @Authenticated
 @Priority(Priorities.AUTHENTICATION)
-public class AuthenticatedFilter implements ContainerRequestFilter {
+public class AuthenticationFilter implements ContainerRequestFilter {
     @Inject
     private ITokenDAO tokenDAO;
 

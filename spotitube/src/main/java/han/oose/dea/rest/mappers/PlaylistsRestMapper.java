@@ -25,7 +25,7 @@ public class PlaylistsRestMapper implements IRestMapper<PlaylistsDTO, List<Playl
         return null;
     }
 
-    private long calculateLength(List<PlaylistDTO> playlistDTOs) {
+    protected long calculateLength(List<PlaylistDTO> playlistDTOs) {
         long seconds = 0;
 
         for (PlaylistDTO p : playlistDTOs) {

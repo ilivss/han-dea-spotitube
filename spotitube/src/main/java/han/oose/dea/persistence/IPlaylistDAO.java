@@ -3,6 +3,7 @@ package han.oose.dea.persistence;
 import han.oose.dea.domain.Playlist;
 import han.oose.dea.exceptions.PersistenceException;
 
+import javax.sql.DataSource;
 import java.util.List;
 
 public interface IPlaylistDAO {
@@ -13,4 +14,6 @@ public interface IPlaylistDAO {
     void deletePlaylist(int playlistId) throws PersistenceException;
 
     void editPlaylist(int playlistId, Playlist playlist) throws PersistenceException;
+
+    void setDataSource(DataSource dataSource);
 }

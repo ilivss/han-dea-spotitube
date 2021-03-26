@@ -6,7 +6,7 @@ import han.oose.dea.rest.dto.UserDTO;
 public class UserRestMapper implements IRestMapper<UserDTO, User> {
     @Override
     public UserDTO toDTO(User user) {
-        return null;
+        return new UserDTO(user.getUsername(), user.getPassword());
     }
 
     public User toDomainObject(UserDTO userDTO) {

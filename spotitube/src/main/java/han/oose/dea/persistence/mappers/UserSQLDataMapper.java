@@ -13,8 +13,7 @@ public class UserSQLDataMapper implements IDataMapper<ResultSet, User> {
             return new User(resultSet.getString("username"), resultSet.getString("password"));
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 }

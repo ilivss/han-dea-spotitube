@@ -1,5 +1,6 @@
-package han.oose.dea.exceptions;
+package han.oose.dea.exceptions.mappers;
 
+import han.oose.dea.exceptions.MissingTokenException;
 import han.oose.dea.rest.dto.ErrorDTO;
 
 import javax.ws.rs.core.Response;

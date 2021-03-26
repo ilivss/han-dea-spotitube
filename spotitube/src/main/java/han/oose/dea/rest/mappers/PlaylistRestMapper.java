@@ -8,14 +8,14 @@ import java.util.stream.Collectors;
 
 public class PlaylistRestMapper {
     @Inject
-    private TrackRestMapper trackMapper;
+    private TrackRestMapper trackRestMapper;
 
     public PlaylistDTO toDTO(Playlist playlist, String username) {
         return new PlaylistDTO(
                 playlist.getId(),
                 playlist.getName(),
                 playlist.getOwner().equals(username),
-                playlist.getTracks().stream().map(track -> trackMapper.toDTO(track)).collect(Collectors.toList())
+                playlist.getTracks().stream().map(track -> trackRestMapper.toDTO(track)).collect(Collectors.toList())
         );
     }
 

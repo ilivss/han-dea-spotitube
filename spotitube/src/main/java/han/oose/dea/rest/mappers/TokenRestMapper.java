@@ -8,9 +8,4 @@ public class TokenRestMapper implements IRestMapper<TokenDTO, Token> {
     public TokenDTO toDTO(Token token) {
         return new TokenDTO(token.getUsername(), token.getToken());
     }
-
-    @Override
-    public Token toDomainObject(TokenDTO tokenDTO) {
-        return null;
-    }
 }

@@ -20,11 +20,6 @@ public class PlaylistsRestMapper implements IRestMapper<PlaylistsDTO, List<Playl
         );
     }
 
-    @Override
-    public List<PlaylistDTO> toDomainObject(PlaylistsDTO playlistsDTO) {
-        return null;
-    }
-
     protected long calculateLength(List<PlaylistDTO> playlistDTOs) {
         long seconds = 0;
 

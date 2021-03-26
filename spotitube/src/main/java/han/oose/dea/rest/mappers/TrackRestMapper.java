@@ -18,9 +18,4 @@ public class TrackRestMapper implements IRestMapper<TrackDTO, Track> {
                 track.getOfflineAvailable()
         );
     }
-
-    @Override
-    public Track toDomainObject(TrackDTO DTOObject) {
-        return null;
-    }
 }

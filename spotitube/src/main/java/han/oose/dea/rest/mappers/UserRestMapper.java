@@ -9,7 +9,6 @@ public class UserRestMapper implements IRestMapper<UserDTO, User> {
         return null;
     }
 
-    @Override
     public User toDomainObject(UserDTO userDTO) {
         return new User(userDTO.user, userDTO.password);
     }

@@ -12,6 +12,7 @@ import han.oose.dea.rest.mappers.PlaylistRestMapper;
 import han.oose.dea.rest.mappers.PlaylistsRestMapper;
 import han.oose.dea.rest.mappers.TrackRestMapper;
 import han.oose.dea.services.PlaylistService;
+import han.oose.dea.services.PlaylistTrackService;
 import han.oose.dea.services.TrackService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,6 +30,7 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import static org.mockito.MockitoAnnotations.openMocks;
 
@@ -38,6 +40,9 @@ class PlaylistEndpointTest {
 
     @Mock
     private TrackService trackService;
+
+    @Mock
+    private PlaylistTrackService playlistTrackService;
 
     @Mock
     private PlaylistRestMapper playlistRestMapper;
@@ -56,6 +61,9 @@ class PlaylistEndpointTest {
 
     private PlaylistsDTO playlistsDTO;
     private PlaylistDTO playlistDTO;
+    private TracksDTO tracksDTO;
+    private TrackDTO trackDTO;
+    private int id;
 
     @BeforeEach
     public void setup() throws PersistenceException {
@@ -69,6 +77,8 @@ class PlaylistEndpointTest {
         Playlist playlist = new Playlist();
         playlistDTO = new PlaylistDTO();
         playlistsDTO = new PlaylistsDTO();
+        tracksDTO = new TracksDTO();
+
         String username = "test";
 
         // Mock getAll()
@@ -77,10 +87,12 @@ class PlaylistEndpointTest {
         when(playlistService.getAll()).thenReturn(playlists);
 
         // Mock getAllTracks
-        int id = 1;
-        var tracks = new ArrayList<Track>();
         var track = new Track();
-        var trackDTO = new TrackDTO();
+        var tracks = Collections.singletonList(track);
+        trackDTO = new TrackDTO();
+        trackDTO.id = 1;
+        trackDTO.offlineAvailable = true;
+        id = 1;
         when(trackService.getInPlaylist(id)).thenReturn(tracks);
         when(trackRestMapper.toDTO(track)).thenReturn(trackDTO);
     }
@@ -112,7 +124,6 @@ class PlaylistEndpointTest {
     @Test
     public void deletePlaylist() throws PersistenceException {
         // Arrange
-        int id = 1;
 
         // Act
         Response response = playlistEndpoint.deletePlaylist(id);
@@ -125,7 +136,6 @@ class PlaylistEndpointTest {
     @Test
     public void editPlaylist() throws PersistenceException {
         // Arrange
-        int id = 1;
 
         // Act
         Response response = playlistEndpoint.editPlaylist(id, playlistDTO);
@@ -136,13 +146,44 @@ class PlaylistEndpointTest {
     }
 
     @Test
-    public  void getAllTracksInPlaylist() {
+    public void getAllTracksInPlaylist() throws PersistenceException {
         // Arrange
 
         // Act
-        Response response = new Play
+        Response response = playlistEndpoint.getAllTracksInPlaylist(id);
 
         // Assert
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+//        assertEquals(tracksDTO, response.getEntity()); // werkt niet omdat getAllTracks() new TracksDTO returned.
+        assertEquals(trackDTO, ((TracksDTO) response.getEntity()).tracks.get(0));
+    }
+
+    @Test
+    void removeTrackFromPlaylist() throws PersistenceException {
+        // Arrange
+
+        // Act
+        Response response = playlistEndpoint.removeTrackFromPlaylist(id, id);
+
+        // Assert
+        verify(playlistTrackService).removeTrackFromPlaylist(id, id);
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals(trackDTO, ((TracksDTO) response.getEntity()).tracks.get(0));
+    }
+
+    @Test
+    void addTrackToPlaylist() throws PersistenceException {
+        // Arrange
+
+        // Act
+        Response response = playlistEndpoint.addTrackToPlaylist(id, trackDTO);
+
+        // Assert
+        verify(playlistTrackService).addTrackToPlaylist(id, trackDTO.id);
+        verify(trackService).setTrackAvailability(trackDTO.id, trackDTO.offlineAvailable);
+
+        assertEquals(Response.Status.OK, response.getStatusInfo());
+        assertEquals(trackDTO, ((TracksDTO) response.getEntity()).tracks.get(0));
 
     }
 }

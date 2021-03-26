@@ -17,8 +17,7 @@ public class TokenMySQLDataMapper implements IDataMapper <ResultSet, Token> {
                     );
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 }

@@ -16,8 +16,7 @@ public class PlaylistSQLDataMapper implements IDataMapper<ResultSet, Playlist> {
             );
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 }

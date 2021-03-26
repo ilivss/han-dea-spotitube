@@ -22,8 +22,7 @@ public class TrackSQLDataMapper implements IDataMapper<ResultSet, Track> {
             );
         } catch (SQLException e) {
             e.printStackTrace();
+            return null;
         }
-
-        return null;
     }
 }

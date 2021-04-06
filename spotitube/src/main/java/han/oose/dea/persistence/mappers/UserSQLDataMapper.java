@@ -4,7 +4,6 @@ import han.oose.dea.domain.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Logger;
 
 public class UserSQLDataMapper implements IDataMapper<ResultSet, User> {
     @Override
